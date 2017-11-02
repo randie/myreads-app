@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import { getAll, update, search } from './BooksAPI';
 import Bookcase from './Bookcase';
 import './App.css';
@@ -31,10 +31,13 @@ class App extends Component {
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        <Bookcase books={this.state.books} />
+        <Bookcase
+          books={this.state.books}
+          moveBookToBookshelf={this.moveBookToBookshelf}
+        />
       </div>
       <div className="open-search">
-        <a href="/search">Add a book</a>
+        <Link to="/search">Add a book</Link>
       </div>
     </div>
   );
@@ -42,9 +45,9 @@ class App extends Component {
   searchPage = () => (
     <div className="search-books">
       <div className="search-books-bar">
-        <a href="/" className="close-search">
+        <Link to="/" className="close-search">
           Close
-        </a>
+        </Link>
         <div className="search-books-input-wrapper">
           {/*
             NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -64,6 +67,13 @@ class App extends Component {
   );
 
   notFoundPage = () => <h2>404 Page not found</h2>;
+
+  moveBookToBookshelf = book => event => {
+    const bookshelf = event.target.value;
+    update(book, bookshelf)
+      .then(getAll)
+      .then(books => this.setState({ books }));
+  };
 }
 
 export default App;
