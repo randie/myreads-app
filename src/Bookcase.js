@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import uniq from 'lodash.uniq';
 import Bookshelf from './Bookshelf';
 
 class Bookcase extends Component {
   render() {
     const { books, moveBookToBookshelf } = this.props;
-
-    //const bookshelves = uniq(books.map(book => book.shelf));
     const bookshelves = ['currentlyReading', 'wantToRead', 'read'];
 
     return (
-      <div>
+      <div className="list-books-content">
         {bookshelves.map(bookshelf => (
           <Bookshelf
             key={bookshelf}

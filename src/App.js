@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { getAll, update, search } from './BooksAPI';
 import Bookcase from './Bookcase';
 import './App.css';
@@ -11,13 +11,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app">
+      <Router>
         <Switch>
           <Route exact path="/" render={this.homePage} />
           <Route path="/search" render={this.searchPage} />
           <Route render={this.notFoundPage} />
         </Switch>
-      </div>
+      </Router>
     );
   }
 
@@ -28,14 +28,12 @@ class App extends Component {
   homePage = () => (
     <div className="list-books">
       <div className="list-books-title">
-        <h1>MyReads</h1>
+        <h1>MyReads App</h1>
       </div>
-      <div className="list-books-content">
-        <Bookcase
-          books={this.state.books}
-          moveBookToBookshelf={this.moveBookToBookshelf}
-        />
-      </div>
+      <Bookcase
+        books={this.state.books}
+        moveBookToBookshelf={this.moveBookToBookshelf}
+      />
       <div className="open-search">
         <Link to="/search">Add a book</Link>
       </div>

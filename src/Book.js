@@ -4,18 +4,17 @@ import upperFirst from 'lodash/upperFirst.js';
 class Book extends Component {
   render() {
     const { book, bookshelves, moveBookToBookshelf } = this.props;
+    const bookCoverStyle = {
+      width: 128,
+      height: 193,
+      backgroundImage: `url(${book.imageLinks.thumbnail})`,
+    };
+
     return (
       <li key={book.id}>
         <div className="book">
           <div className="book-top">
-            <div
-              className="book-cover"
-              style={{
-                width: 128,
-                height: 193,
-                backgroundImage: `url(${book.imageLinks.thumbnail})`,
-              }}
-            />
+            <div className="book-cover" style={bookCoverStyle} />
             <div className="book-shelf-changer">
               <select value={book.shelf} onChange={moveBookToBookshelf}>
                 <option value="none" disabled>
