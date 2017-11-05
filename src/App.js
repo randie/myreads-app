@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { getAll, update, search } from './BooksAPI';
 import Bookcase from './Bookcase';
+import Search from './Search';
 import './App.css';
 
 class App extends Component {
   state = {
     books: [],
+    query: '',
+    results: [],
   };
 
   render() {
@@ -41,27 +44,12 @@ class App extends Component {
   );
 
   searchPage = () => (
-    <div className="search-books">
-      <div className="search-books-bar">
-        <Link to="/" className="close-search">
-          Close
-        </Link>
-        <div className="search-books-input-wrapper">
-          {/*
-            NOTES: The search from BooksAPI is limited to a particular set of search terms.
-            You can find these search terms here:
-            https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-            However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-            you don't find a specific author or title. Every search is limited by search terms.
-          */}
-          <input type="text" placeholder="Search by title or author" />
-        </div>
-      </div>
-      <div className="search-books-results">
-        <ol className="books-grid" />
-      </div>
-    </div>
+    <Search
+      query={this.state.query}
+      results={this.state.results}
+      searchBooks={this.searchBooks}
+      moveBookToBookshelf={this.moveBookToBookshelf}
+    />
   );
 
   notFoundPage = () => <h2>404 Page not found</h2>;
@@ -70,7 +58,23 @@ class App extends Component {
     const bookshelf = event.target.value;
     update(book, bookshelf)
       .then(getAll)
-      .then(books => this.setState({ books }));
+      .then(books => this.setState({ books }))
+      .catch(console.error);
+  };
+
+  searchBooks = event => {
+    const query = event.target.value.trim();
+    const maxNumResults = 20;
+
+    this.setState({ query });
+    search(query, maxNumResults)
+      .then(results => {
+        if (!results || !!results.error || !this.state.query.length) {
+          return this.setState({ results: [] });
+        }
+        this.setState({ results });
+      })
+      .catch(console.error);
   };
 }
 

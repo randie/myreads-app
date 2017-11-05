@@ -4,11 +4,16 @@ import upperFirst from 'lodash/upperFirst.js';
 class Book extends Component {
   render() {
     const { book, bookshelves, moveBookToBookshelf } = this.props;
+
     const bookCoverStyle = {
       width: 128,
       height: 193,
-      backgroundImage: `url(${book.imageLinks.thumbnail})`,
     };
+
+    // some books have no image thumbnail, so check first
+    if (!!book.imageLinks) {
+      bookCoverStyle.backgroundImage = `url(${book.imageLinks.thumbnail})`;
+    }
 
     return (
       <li key={book.id}>
@@ -29,13 +34,12 @@ class Book extends Component {
                     {upperFirst(bookshelf.replace(/([A-Z])/g, ' $1'))}
                   </option>
                 ))}
-                <option value="xnone">None</option>
+                <option value="none">None</option>
               </select>
             </div>
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">{book.authors}</div>
-          <div className="book-authors">id: {book.id}</div>
         </div>
       </li>
     );
