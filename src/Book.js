@@ -4,7 +4,7 @@ import upperFirst from 'lodash/upperFirst.js';
 class Book extends Component {
   render() {
     const { book, moveBookToBookshelf } = this.props;
-    const bookshelves = ['currentlyReading', 'wantToRead', 'read']; // for bookshelf selector
+    const bookshelves = ['currentlyReading', 'wantToRead', 'read', 'none']; // for bookshelf selector
 
     const bookCoverStyle = {
       width: 128,
@@ -23,7 +23,7 @@ class Book extends Component {
             <div className="book-cover" style={bookCoverStyle} />
             <div className="book-shelf-changer">
               <select value={book.shelf} onChange={moveBookToBookshelf}>
-                <option value="none" disabled>
+                <option value="moveTo" disabled>
                   Move to...
                 </option>
                 {bookshelves.map(bookshelf => (
@@ -35,7 +35,6 @@ class Book extends Component {
                     {upperFirst(bookshelf.replace(/([A-Z])/g, ' $1'))}
                   </option>
                 ))}
-                <option value="none">None</option>
               </select>
             </div>
           </div>

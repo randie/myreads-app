@@ -59,7 +59,19 @@ class App extends Component {
     const bookshelf = event.target.value;
     update(book, bookshelf)
       .then(getAll)
-      .then(books => this.setState({ books }))
+      .then(books => {
+        if (this.state.results.length > 0) {
+          const results = this.state.results.map(resultBook => {
+            if (resultBook.id === book.id) {
+              resultBook.shelf = bookshelf;
+            }
+            return resultBook;
+          });
+          this.setState({ books, results });
+        } else {
+          this.setState({ books });
+        }
+      })
       .catch(console.error);
   };
 
