@@ -5,7 +5,6 @@ import Book from './Book';
 class Search extends Component {
   render() {
     const { query, results, searchBooks, moveBookToBookshelf } = this.props;
-    const bookshelves = ['currentlyReading', 'wantToRead', 'read'];
 
     return (
       <div className="search-books">
@@ -28,7 +27,6 @@ class Search extends Component {
               <Book
                 key={book.id}
                 book={book}
-                bookshelves={bookshelves}
                 moveBookToBookshelf={moveBookToBookshelf(book)}
               />
             ))}

@@ -3,7 +3,8 @@ import upperFirst from 'lodash/upperFirst.js';
 
 class Book extends Component {
   render() {
-    const { book, bookshelves, moveBookToBookshelf } = this.props;
+    const { book, moveBookToBookshelf } = this.props;
+    const bookshelves = ['currentlyReading', 'wantToRead', 'read']; // for bookshelf selector
 
     const bookCoverStyle = {
       width: 128,

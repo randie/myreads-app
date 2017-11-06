@@ -4,7 +4,7 @@ import Book from './Book';
 
 class Bookshelf extends Component {
   render() {
-    const { title, books, bookshelves, moveBookToBookshelf } = this.props;
+    const { title, books, moveBookToBookshelf } = this.props;
 
     // e.g. 'currentlyReading' => 'Currently Reading'
     const bookshelfTitle = upperFirst(title.replace(/([A-Z])/g, ' $1'));
@@ -18,7 +18,6 @@ class Bookshelf extends Component {
               <Book
                 key={book.id}
                 book={book}
-                bookshelves={bookshelves}
                 moveBookToBookshelf={moveBookToBookshelf(book)}
               />
             ))}

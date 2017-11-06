@@ -13,7 +13,6 @@ class Bookcase extends Component {
             key={bookshelf}
             title={bookshelf}
             books={books.filter(book => book.shelf === bookshelf)}
-            bookshelves={bookshelves}
             moveBookToBookshelf={moveBookToBookshelf}
           />
         ))}
