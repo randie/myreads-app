@@ -60,7 +60,7 @@ class App extends Component {
     update(book, bookshelf)
       .then(getAll)
       .then(books => {
-        if (this.state.results.length > 0) {
+        if (_find(this.state.results, { id: book.id })) {
           const results = this.state.results.map(resultBook => {
             if (resultBook.id === book.id) {
               resultBook.shelf = bookshelf;
@@ -80,7 +80,7 @@ class App extends Component {
     this.setState({ query });
 
     // only hit the search API if query is not empty, otherwise
-    // it's just a wasted round trip that will return a 403 error
+    // it's a wasted round trip that will return a 403 error
     if (!query) {
       return this.setState({ results: [] });
     }
