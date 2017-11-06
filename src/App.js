@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import _find from 'lodash/find';
 import { getAll, update, search } from './BooksAPI';
 import Bookcase from './Bookcase';
 import Search from './Search';
@@ -64,14 +65,31 @@ class App extends Component {
 
   searchBooks = event => {
     const query = event.target.value.trim();
-    const maxNumResults = 20;
-
     this.setState({ query });
+
+    // only hit the search API if query is not empty, otherwise
+    // it's just a wasted round trip that will return a 403 error
+    if (!query) {
+      return this.setState({ results: [] });
+    }
+
+    const maxNumResults = 20;
     search(query, maxNumResults)
-      .then(results => {
-        if (!results || !!results.error || !this.state.query.length) {
+      .then(searchResults => {
+        if (!searchResults || !!searchResults.error) {
           return this.setState({ results: [] });
         }
+
+        const results = searchResults.map(book => {
+          let foundBook = _find(this.state.books, { id: book.id }); // is this book in my library?
+          if (foundBook) {
+            book.shelf = foundBook.shelf;
+          } else if (!book.shelf) {
+            book.shelf = 'none';
+          }
+          return book;
+        });
+
         this.setState({ results });
       })
       .catch(console.error);
