@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import upperFirst from 'lodash/upperFirst.js';
+import _upperFirst from 'lodash/upperFirst.js';
 import Book from './Book';
 
 class Bookcase extends Component {
@@ -11,7 +11,7 @@ class Bookcase extends Component {
       <div className="list-books-content">
         {bookshelves.map(bookshelf => {
           // e.g. 'currentlyReading' => 'Currently Reading'
-          const bookshelfTitle = upperFirst(
+          const bookshelfTitle = _upperFirst(
             bookshelf.replace(/([A-Z])/g, ' $1'),
           );
 
@@ -20,15 +20,15 @@ class Bookcase extends Component {
               <h2 className="bookshelf-title">{bookshelfTitle}</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {books
-                    .filter(book => book.shelf === bookshelf)
-                    .map(book => (
+                  {books.filter(book => book.shelf === bookshelf).map(book => (
+                    <li key={book.id}>
                       <Book
                         key={book.id}
                         book={book}
                         moveBookToBookshelf={moveBookToBookshelf(book)}
                       />
-                    ))}
+                    </li>
+                  ))}
                 </ol>
               </div>
             </div>

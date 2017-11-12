@@ -17,31 +17,29 @@ class Book extends Component {
     }
 
     return (
-      <li key={book.id}>
-        <div className="book">
-          <div className="book-top">
-            <div className="book-cover" style={bookCoverStyle} />
-            <div className="book-shelf-changer">
-              <select value={book.shelf} onChange={moveBookToBookshelf}>
-                <option value="moveTo" disabled>
-                  Move to...
+      <div className="book">
+        <div className="book-top">
+          <div className="book-cover" style={bookCoverStyle} />
+          <div className="book-shelf-changer">
+            <select value={book.shelf} onChange={moveBookToBookshelf}>
+              <option value="moveTo" disabled>
+                Move to...
+              </option>
+              {bookshelves.map(bookshelf => (
+                <option
+                  key={bookshelf}
+                  value={bookshelf}
+                  disabled={bookshelf === book.shelf}
+                >
+                  {upperFirst(bookshelf.replace(/([A-Z])/g, ' $1'))}
                 </option>
-                {bookshelves.map(bookshelf => (
-                  <option
-                    key={bookshelf}
-                    value={bookshelf}
-                    disabled={bookshelf === book.shelf}
-                  >
-                    {upperFirst(bookshelf.replace(/([A-Z])/g, ' $1'))}
-                  </option>
-                ))}
-              </select>
-            </div>
+              ))}
+            </select>
           </div>
-          <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors}</div>
         </div>
-      </li>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
+      </div>
     );
   }
 }

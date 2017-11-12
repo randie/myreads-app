@@ -18,17 +18,20 @@ class Search extends Component {
               placeholder="Search by title or author"
               value={query}
               onChange={searchBooks}
+              autoFocus
             />
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
             {results.map(book => (
-              <Book
-                key={book.id}
-                book={book}
-                moveBookToBookshelf={moveBookToBookshelf(book)}
-              />
+              <li key={book.id}>
+                <Book
+                  key={book.id}
+                  book={book}
+                  moveBookToBookshelf={moveBookToBookshelf(book)}
+                />
+              </li>
             ))}
           </ol>
         </div>

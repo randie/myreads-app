@@ -93,9 +93,9 @@ class App extends Component {
         }
 
         const results = searchResults.map(book => {
-          let foundBook = _find(this.state.books, { id: book.id }); // is this book in my library?
-          if (foundBook) {
-            book.shelf = foundBook.shelf;
+          let libraryBook = _find(this.state.books, { id: book.id }); // is this book in my library?
+          if (libraryBook) {
+            book.shelf = libraryBook.shelf;
           } else if (!book.shelf) {
             book.shelf = 'none';
           }
