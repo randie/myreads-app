@@ -2,6 +2,8 @@
 
 A book tracking application that allows you to select and categorize books you have read, are currently reading or want to read.
 
+Demo: https://upbeat-almeida-3e5588.netlify.com/
+
 This is the first project in [Udacity's React Nanodegree program](https://www.udacity.com/course/react-nanodegree--nd019) concluding the "React Fundamentals" portion of the program.
 
 This application was bootstrapped with [create-react-app](https://github.com/facebookincubator/create-react-app). Note, while this application is implemented using React, it is purposely not using Redux, as this is a pre-Redux project, i.e. assigned prior to the Redux section of the program.
